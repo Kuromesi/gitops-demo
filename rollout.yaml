@@ -1,0 +1,24 @@
+apiVersion: rollouts.kruise.io/v1alpha1
+kind: Rollout
+metadata:
+  name: rollouts-demo
+  annotations:
+    rollouts.kruise.io/rolling-style: canary
+spec:
+  objectRef:
+    workloadRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: echo-server
+  strategy:
+    canary:
+      steps:
+      - weight: 20
+      - weight: 40
+      - weight: 60
+      - weight: 80
+  trafficRoutings:
+  - service: echo-server
+    ingress:
+      classType: nginx
+      name: ingress-demo
