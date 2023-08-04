@@ -7,9 +7,9 @@ metadata:
 spec:
   objectRef:
     workloadRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: echo-server
+      apiVersion: apps/v1
+      kind: Deployment
+      name: echo-server
   strategy:
     canary:
       steps:
@@ -17,8 +17,8 @@ spec:
       - weight: 40
       - weight: 60
       - weight: 80
-  trafficRoutings:
-  - service: echo-server
-    ingress:
-      classType: nginx
-      name: ingress-demo
+      trafficRoutings:
+      - service: echo-server
+        ingress:
+          classType: nginx
+          name: ingress-demo
