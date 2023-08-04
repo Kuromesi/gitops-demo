@@ -34,10 +34,27 @@ metadata:
   labels:
     app: echo-server
 spec:
-  type: LoadBalancer
   ports:
-    - port: 80
+    - port: 8080
       protocol: TCP
       targetPort: 8080
   selector:
     app: echo-server
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-demo
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /testpath
+        pathType: Prefix
+        backend:
+          service:
+            name: echo-server
+            port:
+              number: 8080
